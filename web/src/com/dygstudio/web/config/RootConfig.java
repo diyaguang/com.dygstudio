@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * Created by newsu on 2017/5/25.
  */
 @Configuration
-@ComponentScan(basePackages = {"com.dygstudio.web"},excludeFilters = {@ComponentScan.Filter(type= FilterType.ANNOTATION,value= EnableWebMvc.class)})
+@ComponentScan(basePackages = {"com.dygstudio.web"},
+        excludeFilters = {@ComponentScan.Filter(type= FilterType.ANNOTATION,value= EnableWebMvc.class)})
 public class RootConfig {
 }
