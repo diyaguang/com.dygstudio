@@ -8,7 +8,7 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="jdbcUrl">
-            <value>jdbc:mysql://localhost:3306/dygstudio?useUnicode=true&characterEncoding=UTF-8</value>
+            <value>jdbc:mysql://localhost:3306/dygstudio</value>
         </property>
         <property name="user">
             <value>root</value>
