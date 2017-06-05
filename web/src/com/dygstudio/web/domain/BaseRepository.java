@@ -4,6 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,6 +15,8 @@ import java.util.Map;
 /**
  * Created by newsu on 2017/6/2.
  */
+@Repository
+@Transactional
 public interface BaseRepository<T,PK extends Serializable> {
     public Session getSession();
     public void save(final T entity);

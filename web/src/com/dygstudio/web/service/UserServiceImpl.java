@@ -4,13 +4,15 @@ import com.dygstudio.web.domain.UserDao;
 import com.dygstudio.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by newsu on 2017/6/2.
  */
-@Service
+@Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -26,5 +28,9 @@ public class UserServiceImpl implements UserService {
     public int login(User user){
         //这里对传进来的用户与数据库中查询到的用户的数据进行比对，判断是否可以登录
         return 0;
+    }
+    public User getUser(String userId){
+        User user = userDao.get(userId);
+        return user;
     }
 }

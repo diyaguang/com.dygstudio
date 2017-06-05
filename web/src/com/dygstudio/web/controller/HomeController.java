@@ -14,13 +14,8 @@ import java.util.List;
  */
 @Controller
 public class HomeController {
-
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String Home(){
-        List<User> result = userService.getAllUser();
         return "index";
     }
 }

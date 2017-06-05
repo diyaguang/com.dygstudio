@@ -1,5 +1,8 @@
 package com.dygstudio.web.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,11 +22,18 @@ public class User {
     @Id
     @Column(name = "id")
     private String _id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "userpwd")
     private String userpwd;
 
     public User(){}
     public User(String username,String userpwd){
+        this.username = username;
+        this.userpwd = userpwd;
+    }
+    public User(String id,String username,String userpwd){
+        this._id = id;
         this.username = username;
         this.userpwd = userpwd;
     }
@@ -45,5 +55,14 @@ public class User {
     }
     public void setId(String id){
         this._id = id;
+    }
+
+    @Override
+    public boolean equals(Object that){
+        return EqualsBuilder.reflectionEquals(this,that,"id");
+    }
+    @Override
+    public int hashCode(){
+        return HashCodeBuilder.reflectionHashCode(this,"id");
     }
 }

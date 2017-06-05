@@ -1,6 +1,7 @@
 package com.dygstudio.web.domain;
 
 import com.dygstudio.web.commons.GenericsUtils;
+import com.opensymphony.xwork2.inject.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -11,8 +12,12 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -24,9 +29,13 @@ import java.util.Map;
  * 可以再 Service 层直接使用，也可以扩展泛型 DAO 子类使用，取消了 HibernateTemplate，直接使用 Hibernate 原生 API
  * 参数： T DAO操作的对象类型，PK 主键类型
  */
+@Repository
+@Transactional
 public class BaseRepositoryImpl<T,PK extends Serializable> implements BaseRepository<T,PK> {
     protected Logger logger = LoggerFactory.getLogger(getClass());
+
     protected SessionFactory sessionFactory;
+
     protected Class<T> entityClass;
 
     /**
@@ -66,7 +75,7 @@ public class BaseRepositoryImpl<T,PK extends Serializable> implements BaseReposi
      * @return
      */
     public Session getSession(){
-        return sessionFactory.getCurrentSession();
+        return sessionFactory.openSession();
     }
 
     /**
