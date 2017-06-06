@@ -6,6 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by diyaguang on 2017/6/1.
@@ -131,5 +132,15 @@ public class GenericsUtils {
      */
     public static Class getFieldGenericType(Field field){
         return getFieldGenericType(field,0);
+    }
+
+    /**
+     *  获取GUID数据
+     * @return
+     */
+    public static String getUUID(boolean wipeLine){
+        UUID uuid = UUID.randomUUID();
+        String a = uuid.toString();
+        return wipeLine?a.replaceAll("-",""):a;
     }
 }

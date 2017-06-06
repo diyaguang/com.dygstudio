@@ -6,12 +6,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by diyaguang on 2017/5/31.
  * 用户表的 JavaBean
  */
 @Entity
+@Table( name = "user")
 public class User {
 
     @Override

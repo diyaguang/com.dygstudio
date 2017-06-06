@@ -1,7 +1,6 @@
 package com.dygstudio.web.domain;
 
 import com.dygstudio.web.commons.GenericsUtils;
-import com.opensymphony.xwork2.inject.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -12,12 +11,10 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -75,6 +72,14 @@ public class BaseRepositoryImpl<T,PK extends Serializable> implements BaseReposi
      * @return
      */
     public Session getSession(){
+        return sessionFactory.getCurrentSession();
+    }
+
+    /**
+     * 重新打开一个新的 Session
+     * @return
+     */
+    public Session openSession(){
         return sessionFactory.openSession();
     }
 
@@ -82,8 +87,10 @@ public class BaseRepositoryImpl<T,PK extends Serializable> implements BaseReposi
      * 保存新增或修改的对象
      * @param entity
      */
+    @Transactional
     public void save(final T entity){
         getSession().saveOrUpdate(entity);
+        getSession().flush();;
         logger.debug("save entity:{}",entity);
     }
 
@@ -110,7 +117,7 @@ public class BaseRepositoryImpl<T,PK extends Serializable> implements BaseReposi
      * @return
      */
     public T get(final PK id){
-        return (T)getSession().load(entityClass,id);
+        return (T)getSession().get(entityClass,id);
     }
 
     /**

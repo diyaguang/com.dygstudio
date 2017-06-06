@@ -23,7 +23,7 @@
     <a href="<c:url value="/user" />">UserList</a>
 
     <form method="post">
-        user name:<input type="text" name="userName"/><br/>
+        user name:<input type="text" name="username"/><br/>
         user password:<input type="password" name="userpwd"/><br/>
         <c:if test="${result}"><input type="submit" value="Submit"/></c:if>
         <c:if test="${!result}"><input type="submit" value="Register"/></c:if>

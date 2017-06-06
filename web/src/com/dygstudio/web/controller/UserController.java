@@ -1,5 +1,6 @@
 package com.dygstudio.web.controller;
 
+import com.dygstudio.web.commons.GenericsUtils;
 import com.dygstudio.web.entity.User;
 import com.dygstudio.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class UserController {
     public String Register(){
         return "user/userInfo";
     }
+
     @RequestMapping(value = "/register/{userId}",method = RequestMethod.GET)
     public String Register(@PathVariable(value = "userId") String userId,
                            Model model)
@@ -55,4 +57,18 @@ public class UserController {
         return "user/userInfo";
     }
 
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public String Register(User user){
+        user.setId(GenericsUtils.getUUID(true));
+        userService.saveUser(user);
+        return "redirect:/user/register/"+user.getId();    //数据保存完毕之后，重定向到 用户信息明细页
+    }
+
+    @RequestMapping(value = "/register/{userId}",method = RequestMethod.POST)
+    public String Register(User user,@PathVariable(value = "userId") String userId,Model model){
+        user.setId(userId);
+        userService.saveUser(user);
+        model.addAttribute("isUpdate",true);
+        return "redirect:/user/register/"+user.getId();    //数据更新完毕之后，重定向到 当前页面
+    }
 }

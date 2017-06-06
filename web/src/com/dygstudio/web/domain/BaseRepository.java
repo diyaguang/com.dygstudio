@@ -19,6 +19,7 @@ import java.util.Map;
 @Transactional
 public interface BaseRepository<T,PK extends Serializable> {
     public Session getSession();
+    public Session openSession();
     public void save(final T entity);
     public void delete(final T entity);
     public void delete(final PK id);
