@@ -1,7 +1,9 @@
 package com.dygstudio.web.controller;
 
 import com.dygstudio.web.entity.User;
+import com.dygstudio.web.service.HomeService;
 import com.dygstudio.web.service.UserService;
+import org.apache.catalina.startup.HomesUserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,20 @@ import java.util.List;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    private HomeService homeService;
+
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String Home(Model model){
         model.addAttribute("name","dygstudio");
+
+        /**
+         * 这里测试缓存的处理
+         */
+        homeService.setCacheData("dygstudio","The first java web site!");
+        model.addAttribute("cacheData",homeService.getCacheData("dygstudio"));
+
         return "index";
     }
 }

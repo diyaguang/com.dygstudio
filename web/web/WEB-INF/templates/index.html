@@ -5,7 +5,8 @@
     <title>dygstudio</title>
 </head>
 <body>
-    <p th:text="'Hello, '+${name}+' welcome to my site!'"/>
+    <p th:text="'Hello, '+${name}+' welcome to my site!'"/><br/>
+    <p th:text="${cacheData}"/>
 <div th:include="footer::copy"></div>
 </body>
 </html>
