@@ -3,7 +3,9 @@ package com.dygstudio.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -68,4 +70,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
+    /**
+     * 配置 REST 协商资源表描述方法，扩展该方法，设定默认媒体类型(这是采用 Java配置的一种方法)
+     * @param configurer
+     */
+    /*
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer){
+        configurer.defaultContentType(MediaType.APPLICATION_JSON);
+    }
+    */
 }
