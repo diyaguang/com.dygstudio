@@ -2,6 +2,7 @@ package com.dygstudio.web.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
@@ -33,5 +34,13 @@ public class RootConfig {
 
         sfb.setHibernateProperties(props);
         return sfb;
+    }
+
+    /*
+    * 配置 REST 客户端使用的 Template
+    * */
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 }
