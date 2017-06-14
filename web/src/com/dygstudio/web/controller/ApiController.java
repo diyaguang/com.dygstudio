@@ -1,5 +1,6 @@
 package com.dygstudio.web.controller;
 
+import com.dygstudio.web.config.WebPropertyConfig;
 import com.dygstudio.web.domain.UserDao;
 import com.dygstudio.web.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ApiController {
     private UserDao userRepository;
 
     @Autowired
+    private WebPropertyConfig webPropertyConfig;
+
+    @Autowired
     public ApiController(UserDao userDao){
         this.userRepository = userDao;
     }
@@ -36,12 +40,21 @@ public class ApiController {
     @ResponseBody
     public ResponseEntity<List<User>> getUsers(@RequestParam(value = "max",defaultValue = MAX_LONG_AS_STRING) long max,
                         @RequestParam(value = "count",defaultValue = "20") int count){
+        //获取Web 对应的 ServletContext 对象，用来获取整个应用的上下文------
         WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
         ServletContext servletContext = webApplicationContext.getServletContext();
         String testParam = servletContext.getInitParameter("baseUrl");
+        //-------------------------------------------------------------------------
+
+
         //增加额外的头信息 ------------------------------------------------------
         HttpHeaders headers = new HttpHeaders();
         headers.set("testString",testParam);
+        //-------------------------------------------------------------------------
+
+        //获取配置 property 配置文件中的设置（测试）--------------------------
+        headers.set("testPropertyValue1",webPropertyConfig.testVar1);
+        headers.set("testPropertyValue2",webPropertyConfig.testVar2);
         //-------------------------------------------------------------------------
         return new ResponseEntity<List<User>>(userRepository.getAll(),headers, HttpStatus.OK);
     }
